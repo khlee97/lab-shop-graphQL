@@ -1,27 +1,35 @@
 const resolvers = {
     Order: {
-        // set Query
         delivery: async (root, {deliveryId}, {dataSources}) => {
-            try {
-                if (root && root._links.self.href) {
-                    var parseLink = root._links.self.href.split('/')
-                    var getOrderId = parseLink[parseLink.length - 1]
-                    var deliveries = await dataSources.deliveryRestApi.getDeliveries();
+            var parseLink = root._links.self.href.split('/')
+            var orderId = parseLink[parseLink.length - 1]
+            var deliveries = await dataSources.deliveryRestApi.findByOrderId(orderId);
 
-                    if(deliveries){
-                        var rtnVal = null
-                        Object.values(deliveries).forEach(function (delivery) {
-                            if(delivery && delivery.orderId == getOrderId){
-                                rtnVal = delivery
-                            }
-                        })
-                        return rtnVal
-                    }
-                }
-                return null;
-            } catch (e) {
-                return null;
-            }
+            if (deliveries && deliveries.length>0)
+                return deliveries[0];
+
+            return null;
+
+            // try {
+            //     if (root && root._links.self.href) {
+            //         var parseLink = root._links.self.href.split('/')
+            //         var getOrderId = parseLink[parseLink.length - 1]
+            //         var deliveries = await dataSources.deliveryRestApi.getDeliveries();
+
+            //         if(deliveries){
+            //             var rtnVal = null
+            //             Object.values(deliveries).forEach(function (delivery) {
+            //                 if(delivery && delivery.orderId == getOrderId){
+            //                     rtnVal = delivery
+            //                 }
+            //             })
+            //             return rtnVal
+            //         }
+            //     }
+            //     return null;
+            // } catch (e) {
+            //     return null;
+            // }
         },
         
         inventory: async (root, {productId}, {dataSources}) => {

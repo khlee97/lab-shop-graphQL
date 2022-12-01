@@ -7,13 +7,12 @@ const typeDefs = gql`
     scalar Integer
 
     type Order {
-    	id: Long! 
-			  productId: String 
-			  qty: Integer 
-			  customerId: String 
-			  amount: Double 
-			  status: String 
-			  address: String
+      id: Long! 
+      productId: Long
+      qty: Integer
+      customerId: String
+      status: String
+      address: String
       delivery: Delivery
       inventory: Inventory
     }
@@ -22,11 +21,12 @@ const typeDefs = gql`
 			stock: Long
     }
     type Delivery {
-    	id: Long! 
-			address: String 
-			customerId: String 
-			quantity: Integer 
-			orderId: Long
+      id: Long!
+      orderId: Long 
+      productId: Long 
+      customerId: String 
+      address: String 
+      status: String 
     }
 
     type Query {
