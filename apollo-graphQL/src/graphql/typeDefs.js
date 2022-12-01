@@ -8,12 +8,14 @@ const typeDefs = gql`
 
     type Order {
     	id: Long! 
-			productId: String 
-			qty: Integer 
-			customerId: String 
-			amount: Double 
-			status: String 
-			address: String
+			  productId: String 
+			  qty: Integer 
+			  customerId: String 
+			  amount: Double 
+			  status: String 
+			  address: String
+      delivery: Delivery
+      inventory: Inventory
     }
     type Inventory {
     	id: Long! 

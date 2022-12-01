@@ -25,6 +25,12 @@ class deliveryRestApi extends RESTDataSource {
         return value;
     }
 
+    async findByOrderId(orderId) {
+        const data = await this.get(`/deliveries/search/findByOrderId?orderId=${orderId}`, {})
+        var value = this.stringToJson(data);
+        return value._embedded.deliveries;
+    }
+
     stringToJson(str){
         if(typeof str == 'string'){
             str = JSON.parse(str);
